@@ -1,5 +1,3 @@
-package category;
-
 public enum ShopCategory {
 
     BUILDING_BLOCKS("Blocks de construction"),
