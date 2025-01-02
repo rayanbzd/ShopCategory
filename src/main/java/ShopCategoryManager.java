@@ -1104,13 +1104,14 @@ public class ShopCategoryManager {
         );
 
         // TOOLS_AND_UTILITIES
+        addToCategory(ShopCategory.TOOLS_AND_UTILITIES, Pattern.compile("^music_disc_.*")); //Disque,début music_disc_
+        addToCategory(ShopCategory.TOOLS_AND_UTILITIES, Pattern.compile(".*_SHOVEL$")); //pelle, finissant par _SHOVEL
+        addToCategory(ShopCategory.TOOLS_AND_UTILITIES, Pattern.compile(".*_PICKAXE$")); //pioche, finissant par _PICKAXE
+        addToCategory(ShopCategory.TOOLS_AND_UTILITIES, Pattern.compile(".*_AXE$")); //hache, finissant par _AXE
+        addToCategory(ShopCategory.TOOLS_AND_UTILITIES, Pattern.compile(".*_HOE$")); //Houe, finissant par  _HOE
+        addToCategory(ShopCategory.TOOLS_AND_UTILITIES, Pattern.compile(".*_BUCKET$")); //les seaux, finissant par _BUCKET
         addToCategory(ShopCategory.TOOLS_AND_UTILITIES,
                 Material.WOODEN_SHOVEL,
-                //todo pelle,comprenant _SHOVEL
-                //todo pioche,comprenant _PICKAXE
-                //todo hache,comprenant _AXE
-                //todo Houe,comprenant  _HOE
-                //todo les seaux,comprenant _BUCKET
                 Material.FISHING_ROD,
                 Material.FLINT_AND_STEEL,
                 Material.FIRE_CHARGE,
@@ -1161,7 +1162,6 @@ public class ShopCategoryManager {
                 Material.FURNACE_MINECART,
                 Material.TNT_MINECART,
                 Material.GOAT_HORN
-                //todo Disque,début music_disc_
         );
 
         // COMBAT
@@ -1276,6 +1276,9 @@ public class ShopCategoryManager {
         );
 
         // INGREDIENTS
+        addToCategory(ShopCategory.INGREDIENTS, Pattern.compile(".*_DYE$")); // pour les colorant, finissant _DYE
+        addToCategory(ShopCategory.INGREDIENTS, Pattern.compile(".*_POTTERY_SHERD$")); // pour les fragment de pot, finnissant  _POTTERY_SHERD
+        addToCategory(ShopCategory.INGREDIENTS, Pattern.compile(".*_SMITHING_TEMPLATE$")); //pour les template, finissant _SMITHING_TEMPLATE
         addToCategory(ShopCategory.INGREDIENTS,
                 Material.COAL,
                 Material.CHARCOAL,
@@ -1328,9 +1331,6 @@ public class ShopCategoryManager {
                 Material.POPPED_CHORUS_FRUIT,
                 Material.ECHO_SHARD,
                 Material.DISC_FRAGMENT_5,
-
-                //TODO pour les colorant, finissant _DYE
-
                 Material.BOWL,
                 Material.BRICK,
                 Material.NETHER_BRICK,
@@ -1363,11 +1363,6 @@ public class ShopCategoryManager {
                 Material.PIGLIN_BANNER_PATTERN,
                 Material.FLOW_BANNER_PATTERN,
                 Material.GUSTER_BANNER_PATTERN,
-
-                //TODO pour les fragment de pot, finnissant  _POTTERY_SHERD
-
-                //TODO  pour les template, finissant _SMITHING_TEMPLATE
-
                 Material.EXPERIENCE_BOTTLE,
                 Material.TRIAL_KEY,
                 Material.OMINOUS_TRIAL_KEY,
@@ -1446,9 +1441,7 @@ public class ShopCategoryManager {
         // Retire les items catégorisés
         allItems.removeAll(categorizedItems);
 
-        //TODO ajouter des items ignorés (LEGACY, BEDROCK, etc)
-
-        return allItems;
+        return allItems.stream().filter(material -> !material.name().contains("LEGACY")).collect(Collectors.toSet());
     }
 
     /**
